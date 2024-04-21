@@ -17,13 +17,21 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private String firstName;
+
+    private String lastName;
+
+    private int age;
 
     private String password;
 
+
+    @Column(unique = true)
     private String email;
 
-    @ManyToMany
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -35,6 +43,11 @@ public class User implements UserDetails {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return getFirstName() + getLastName();
     }
 
 
@@ -60,7 +73,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User №" + id + " " + username +
+        return "User №" + id + " " + firstName +
                 ", password = " + password +
                 ", email = " + email +
                 ", roles = " + roles;

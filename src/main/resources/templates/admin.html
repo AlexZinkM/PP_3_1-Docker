@@ -1,33 +1,92 @@
 <!DOCTYPE html>
-<html lang="ru"  xmlns:th="http://thymeleaforg">
+<html lang="ru" xmlns:th="http://thymeleaforg" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Пользователи</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .custom-btn {
+            background-color: white;
+            color: #6c757d;
+            border: 1px solid #6c757d;
+            border-radius: 0;
+            padding: 5px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            padding: 30px;
+            margin-top: 56px; /* Adjusted margin to make space for top bar */
+        }
+
+        table {
+            position: relative;
+            z-index: 0; /* Ensure table is behind sidebar */
+        }
+
+        /*caption {*/
+        /*    font-weight: bold;*/
+        /*    color: black;*/
+        /*    text-align: left;*/
+        /*    font-size: 24px;*/
+        /*    position: absolute;*/
+        /*    top: -54px;*/
+        /*    left: 20px;*/
+        /*}*/
+
+        .table-row-divider {
+            height: 45px;
+        }
+
+        .main-content {
+            margin-left: 200px;
+        }
+    </style>
 </head>
 <body>
-<h1>Список пользователей:</h1>
-<br><br>
-<div th:each="us : ${users}">
-    <p th:text="${us.toString()}" style="font-size: 150%;"></p>
+<div class="bg-dark text-white d-flex justify-content-between" style="padding: 1rem; position: fixed; top: 0; left: 0; right: 0; z-index: 2;">
+    <div>
+        <span>Email: user@example.com</span>
+        <span class="ml-3">Roles: Admin</span>
+    </div>
+    <a href="logout" class="text-white">Logout</a>
 </div>
 
-<br><br><br><br>
-<a href="/create" style="display: block; font-size: 22px;">Добавить</a>
-<br>
-<form action="/delete" method="get">
-    <input type="hidden" name="_method" value="delete">
-    <label for="delete-id">Удалить по ID:</label>
-    <input type="number" id="delete-id" name="id">
-    <button type="submit">Готово</button>
-</form>
-<br>
-<form action="/get" method="get">
-    <input type="hidden" name="_method" value="find">
-    <label for="find-id">Найти по ID:</label>
-    <input type="number" id="find-id" name="id">
-    <button type="submit">Готово</button>
-</form>
-<br><br>
-<a href="logout" style="display: block; text-align: center; font-size: 26px;">Выход</a>
-</body>
+<h1 style="margin-top: 60px;">Admin panel</h1>
 
+<br><br>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="#!">Users table</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#!">New User</a>
+    </li>
+</ul>
+
+<table class="table">
+    <caption>All users</caption>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
