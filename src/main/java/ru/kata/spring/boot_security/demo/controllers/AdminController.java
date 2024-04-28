@@ -8,6 +8,7 @@ import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @RequestMapping("/admin")
 @org.springframework.stereotype.Controller
@@ -21,10 +22,12 @@ class AdminController {
 
 
     @GetMapping("/admin")
-    public String getAll(Model model) {
+    public String getAll(Model model, Principal principal) {
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("thisUser", userService.findByEmail(principal.getName()));
         return "admin";
     }
+
 
 
     @GetMapping("/get")
@@ -54,8 +57,8 @@ class AdminController {
 
 
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam(value = "id") Long id) {
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable(value = "id") Long id) {
         if (userService.findById(id) == null) {
             return "errorPage";
         }

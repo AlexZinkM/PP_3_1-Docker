@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <meta charset="UTF-8">
@@ -18,11 +18,10 @@
 <div class="container-fluid">
     <div class="row bg-dark text-white d-flex justify-content-between align-items-center" style="height: 50px;">
         <!-- Dark top bar on the page -->
-        <div class="p-2" th:each="user : ${users}">
-            <p>Email: <span th:text="${user.email}"></span>, Roles: <span th:text="${user.roles}"></span></p>
+        <div class="p-2">
+            <p>Email: <span th:text="${thisUser.email}"></span>, Roles: <span th:text="${thisUser.roles}"></span></p>
             <a href="/logout" class="text-white p-2 position-absolute top-0 end-0">Logout</a>
         </div>
-
 
 
     </div>
@@ -67,13 +66,7 @@
                         <td class="text-center" th:text="${user.email}"></td>
                         <td class="text-center" th:text="${user.roles}"></td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal"
-                                    th:data-user-id="${user.id}">
-                                <!--                                    data-firstName="${user.firstName}"-->
-                                <!--                                    data-lastName="${user.lastName}"-->
-                                <!--                                    data-age="${user.age}"-->
-                                <!--                                    data-email="${user.email}"-->
-                                <!--                                    data-roles="${user.roles}">-->
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">
                                 Edit
                             </button>
 
@@ -89,6 +82,8 @@
             </ul>
         </div>
     </div>
+
+
 
 
     <!--EDIT USER-->
@@ -108,7 +103,7 @@
                             <div class="row bg-white">
                                 <div class="col-6 mx-auto text-center font-weight-bold">
                                     ID
-                                    <input type="number" name="id" id="idInput" readonly class="form-control" th:value="${user.id}"></div>
+                                    <input type="number" name="id" id="idInput" readonly class="form-control"></div>
                             </div>
                             <div class="row bg-white">
                                 <div class="col-6 mx-auto text-center font-weight-bold my-2">
@@ -169,10 +164,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="row bg-white">
+                            <div class="row bg-white" >
                                 <div class="col-6 mx-auto text-center font-weight-bold">
                                     ID
-                                    <input type="number" name="id" id="idDelete" readonly class="form-control">
+                                    <input type="number" name="id" id="idDelete" readonly class="form-control" >
                                 </div>
                             </div>
 
@@ -201,7 +196,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" data-dismiss="modal" class="btn btn-danger deleteBtn">Delete</button>
+                                <button type="submit" data-dismiss="modal" class="btn btn-danger deleteBtn">Delete</button>
                         </div>
 
                     </div>
@@ -209,20 +204,31 @@
             </div>
         </form>
     </div>
-    <!-- Form for deleting user by ID -->
-    <form action="/admin/delete" method="get">
-        <input type="hidden" name="_method" value="delete">
-        <label for="delete-id">Delete by ID:</label>
-        <input type="number" id="delete-id" name="id">
-        <button type="submit">Submit</button>
-    </form>
 </div>
 
-
-</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+<!--<form th:action="@{/admin/update}" th:method="post" th:object="user">-->
+<!--    <button type="submit" data-dismiss="modal"-->
+<!--            class="btn btn-primary editBtn">Edit-->
+<!--    </button>-->
+<!--</form>-->
+
+<!--<form th:action="@{/admin/delete/{id}(id=user.id)}" th:method="post">-->
+<!--    <button type="submit" data-dismiss="modal"-->
+<!--            class="btn btn-danger deleteBtn">Delete-->
+<!--    </button>-->
+<!--</form>-->
