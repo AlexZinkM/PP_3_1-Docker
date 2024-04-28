@@ -1,89 +1,225 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://thymeleaforg" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Пользователи</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Bootstrap Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
-        .custom-btn {
-            background-color: white;
-            color: #6c757d;
-            border: 1px solid #6c757d;
-            border-radius: 0;
-            padding: 5px 15px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        body {
-            background-color: #f2f2f2;
-            padding: 30px;
-            margin-top: 56px; /* Adjusted margin to make space for top bar */
-        }
-
-        table {
-            position: relative;
-            z-index: 0; /* Ensure table is behind sidebar */
-        }
-
-        /*caption {*/
-        /*    font-weight: bold;*/
-        /*    color: black;*/
-        /*    text-align: left;*/
-        /*    font-size: 24px;*/
-        /*    position: absolute;*/
-        /*    top: -54px;*/
-        /*    left: 20px;*/
-        /*}*/
-
-        .table-row-divider {
-            height: 45px;
-        }
-
-        .main-content {
-            margin-left: 200px;
+        .table-caption {
+            padding-left: 5px;
         }
     </style>
 </head>
 <body>
-<div class="bg-dark text-white d-flex justify-content-between" style="padding: 1rem; position: fixed; top: 0; left: 0; right: 0; z-index: 2;">
-    <div>
-        <span>Email: user@example.com</span>
-        <span class="ml-3">Roles: Admin</span>
+
+<div class="container-fluid">
+    <div class="row bg-dark text-white d-flex justify-content-between align-items-center" style="height: 50px;">
+        <!-- Dark top bar on the page -->
+        <div class="p-2" th:each="user : ${users}">
+            <p>Email: <span th:text="${user.email}"></span>, Roles: <span th:text="${user.roles}"></span></p>
+            <a href="/logout" class="text-white p-2 position-absolute top-0 end-0">Logout</a>
+        </div>
+
+
+
     </div>
-    <a href="logout" class="text-white">Logout</a>
+    <div class="row">
+        <div class="col-2 bg-white p-2" style="height: 100vh;">
+            <!-- Белая левая часть страницы -->
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="button">Admin</button>
+                <button class="btn btn-outline-primary" type="button">User</button>
+            </div>
+        </div>
+        <div class="col-10 bg-light" style="height: 100vh;">
+            <!-- Светло-серая правая часть страницы -->
+            <h1 class="p-2">Admin panel</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/create">New user</a>
+                </li>
+                <table class="table table-striped table-hover caption-top">
+                    <caption class="fw-bold table-caption p-3">All users</caption>
+                    <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">First Name</th>
+                        <th class="text-center">Last Name</th>
+                        <th class="text-center">Age</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Roles</th>
+                        <th class="text-center">Edit</th>
+                        <th class="text-center">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td class="text-center" th:text="${user.id}"></td>
+                        <td class="text-center" th:text="${user.firstName}"></td>
+                        <td class="text-center" th:text="${user.lastName}"></td>
+                        <td class="text-center" th:text="${user.age}"></td>
+                        <td class="text-center" th:text="${user.email}"></td>
+                        <td class="text-center" th:text="${user.roles}"></td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal"
+                                    th:data-user-id="${user.id}">
+                                <!--                                    data-firstName="${user.firstName}"-->
+                                <!--                                    data-lastName="${user.lastName}"-->
+                                <!--                                    data-age="${user.age}"-->
+                                <!--                                    data-email="${user.email}"-->
+                                <!--                                    data-roles="${user.roles}">-->
+                                Edit
+                            </button>
+
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ul>
+        </div>
+    </div>
+
+
+    <!--EDIT USER-->
+    <div>
+        <form class="formEditUser">
+            <div id="editModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Edit user</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row bg-white">
+                                <div class="col-6 mx-auto text-center font-weight-bold">
+                                    ID
+                                    <input type="number" name="id" id="idInput" readonly class="form-control" th:value="${user.id}"></div>
+                            </div>
+                            <div class="row bg-white">
+                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                    Username
+                                    <input type="text" name="name" id="nameInput" class="form-control"></div>
+                            </div>
+
+                            <div class="row bg-white">
+                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                    Age
+                                    <input type="number" name="age" id="ageInput" class="form-control"></div>
+                            </div>
+
+                            <div class="row bg-white">
+                                <div class="col-6 mx-auto text-center font-weight-bold">
+                                    Email
+                                    <input type="email" name="email" id="emailInput" class="form-control"></div>
+                            </div>
+
+                            <div class="row bg-white">
+                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                    Password
+                                    <input type="password" name="password" id="passwordInput" class="form-control"></div>
+                            </div>
+
+                            <div class="row bg-white">
+                                <div class="col-6 mx-auto text-center font-weight-bold">
+                                    Role
+                                    <select class="custom-select form-control" multiple name="role" id="roleInput" size="2">
+                                        <option>ADMIN</option>
+                                        &nbsp
+                                        <option>USER</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" data-dismiss="modal" class="btn btn-primary editBtn">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    ----
+    <!-- Delete-->
+    <div>
+        <form class="formDeleteUser">
+            <div id="deleteModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalDelete">Delete user</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row bg-white">
+                                <div class="col-6 mx-auto text-center font-weight-bold">
+                                    ID
+                                    <input type="number" name="id" id="idDelete" readonly class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row  bg-white ">
+                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                    First name
+                                    <input type="text" name="name" id="nameDelete" readonly class="form-control"></div>
+                            </div>
+
+                            <div class="row bg-white ">
+                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                    Age
+                                    <input type="number" name="age" id="ageDelete" readonly class="form-control"></div>
+                            </div>
+                            <div class="row bg-white ">
+                                <div class="col-6 mx-auto text-center font-weight-bold">
+                                    Email
+                                    <input type="email" name="email" id="emailDelete" readonly class="form-control"></div>
+                            </div>
+                            <div class="row bg-white ">
+                                <div class="col-6 mx-auto text-center font-weight-bold">
+                                    Role
+                                    <input type="text" name="role" id="roleDelete" readonly class="form-control"></div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" data-dismiss="modal" class="btn btn-danger deleteBtn">Delete</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Form for deleting user by ID -->
+    <form action="/admin/delete" method="get">
+        <input type="hidden" name="_method" value="delete">
+        <label for="delete-id">Delete by ID:</label>
+        <input type="number" id="delete-id" name="id">
+        <button type="submit">Submit</button>
+    </form>
 </div>
 
-<h1 style="margin-top: 60px;">Admin panel</h1>
 
-<br><br>
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" href="#!">Users table</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#!">New User</a>
-    </li>
-</ul>
-
-<table class="table">
-    <caption>All users</caption>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Roles</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-</table>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
