@@ -69,13 +69,167 @@
                             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal">
                                 Edit
                             </button>
-
                         </td>
+                        <!--EDIT USER-->
+                        <div>
+                            <form class="formEditUser">
+                                <div id="editModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenterTitle">Edit user</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="row bg-white">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold">
+                                                        ID
+                                                        <input type="number" name="id" id="idInput" readonly
+                                                               class="form-control" th:value="${user.id}"></div>
+                                                </div>
+                                                <div class="row bg-white">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                                        First Name
+                                                        <input type="text" name="name" id="FirstNameInput"
+                                                               class="form-control" th:value="${user.firstName}"></div>
+                                                </div>
+                                                <div class="row bg-white">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                                        Last Name
+                                                        <input type="text" name="name" id="LastNameInput"
+                                                               class="form-control" th:value="${user.lastName}"></div>
+                                                </div>
+
+                                                <div class="row bg-white">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                                        Age
+                                                        <input type="number" name="age" id="ageInput"
+                                                               class="form-control" th:value="${user.age}"></div>
+                                                </div>
+
+                                                <div class="row bg-white">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold">
+                                                        Email
+                                                        <input type="email" name="email" id="emailInput"
+                                                               class="form-control" th:value="${user.email}"></div>
+                                                </div>
+
+                                                <div class="row bg-white">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                                        Password
+                                                        <input type="password" name="password" id="passwordInput"
+                                                               class="form-control" th:value="${user.password}"></div>
+                                                </div>
+
+                                                <div class="row bg-white">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold">
+                                                        Role
+                                                        <select class="custom-select form-control" multiple name="role"
+                                                                id="roleInput" size="2" th:value="${user.roles}">
+                                                            <option>ADMIN</option>
+                                                            &nbsp
+                                                            <option>USER</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <form th:action="@{/admin/update}" th:method="post" th:object="${user}">
+                                                    <button type="submit" data-dismiss="modal"
+                                                            class="btn btn-primary editBtn">Edit
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
                         <td class="text-center">
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                                 Delete
                             </button>
                         </td>
+                        <div>
+                            <form class="formDeleteUser">
+                                <div id="deleteModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalDelete">Delete user</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row bg-white">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold">
+                                                        ID
+                                                        <input type="number" name="id" id="idDelete" readonly
+                                                               class="form-control"
+                                                               th:value="${user.id}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row  bg-white ">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                                        First name
+                                                        <input type="text" name="name" id="nameDelete" readonly
+                                                               class="form-control"
+                                                               th:value="${user.firstName}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row bg-white ">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold my-2">
+                                                        Age
+                                                        <input type="number" name="age" id="ageDelete" readonly
+                                                               class="form-control"
+                                                               th:value="${user.age}"></div>
+                                                </div>
+                                                <div class="row bg-white ">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold">
+                                                        Email
+                                                        <input type="email" name="email" id="emailDelete" readonly
+                                                               class="form-control"
+                                                               th:value="${user.email}"></div>
+                                                </div>
+                                                <div class="row bg-white ">
+                                                    <div class="col-6 mx-auto text-center font-weight-bold">
+                                                        Role
+                                                        <input type="text" name="role" id="roleDelete" readonly
+                                                               class="form-control"
+                                                               th:value="${user.roles}"></div>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <form th:action="@{/admin/delete/{id}(id=user.id)}" th:method="post">
+                                                    <button type="submit" data-dismiss="modal"
+                                                            class="btn btn-danger deleteBtn">Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </tr>
                     </tbody>
                 </table>
@@ -84,126 +238,6 @@
     </div>
 
 
-
-
-    <!--EDIT USER-->
-    <div>
-        <form class="formEditUser">
-            <div id="editModal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Edit user</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="row bg-white">
-                                <div class="col-6 mx-auto text-center font-weight-bold">
-                                    ID
-                                    <input type="number" name="id" id="idInput" readonly class="form-control"></div>
-                            </div>
-                            <div class="row bg-white">
-                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
-                                    Username
-                                    <input type="text" name="name" id="nameInput" class="form-control"></div>
-                            </div>
-
-                            <div class="row bg-white">
-                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
-                                    Age
-                                    <input type="number" name="age" id="ageInput" class="form-control"></div>
-                            </div>
-
-                            <div class="row bg-white">
-                                <div class="col-6 mx-auto text-center font-weight-bold">
-                                    Email
-                                    <input type="email" name="email" id="emailInput" class="form-control"></div>
-                            </div>
-
-                            <div class="row bg-white">
-                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
-                                    Password
-                                    <input type="password" name="password" id="passwordInput" class="form-control"></div>
-                            </div>
-
-                            <div class="row bg-white">
-                                <div class="col-6 mx-auto text-center font-weight-bold">
-                                    Role
-                                    <select class="custom-select form-control" multiple name="role" id="roleInput" size="2">
-                                        <option>ADMIN</option>
-                                        &nbsp
-                                        <option>USER</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" data-dismiss="modal" class="btn btn-primary editBtn">Edit</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    ----
-    <!-- Delete-->
-    <div>
-        <form class="formDeleteUser">
-            <div id="deleteModal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalDelete">Delete user</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row bg-white" >
-                                <div class="col-6 mx-auto text-center font-weight-bold">
-                                    ID
-                                    <input type="number" name="id" id="idDelete" readonly class="form-control" >
-                                </div>
-                            </div>
-
-                            <div class="row  bg-white ">
-                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
-                                    First name
-                                    <input type="text" name="name" id="nameDelete" readonly class="form-control"></div>
-                            </div>
-
-                            <div class="row bg-white ">
-                                <div class="col-6 mx-auto text-center font-weight-bold my-2">
-                                    Age
-                                    <input type="number" name="age" id="ageDelete" readonly class="form-control"></div>
-                            </div>
-                            <div class="row bg-white ">
-                                <div class="col-6 mx-auto text-center font-weight-bold">
-                                    Email
-                                    <input type="email" name="email" id="emailDelete" readonly class="form-control"></div>
-                            </div>
-                            <div class="row bg-white ">
-                                <div class="col-6 mx-auto text-center font-weight-bold">
-                                    Role
-                                    <input type="text" name="role" id="roleDelete" readonly class="form-control"></div>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" data-dismiss="modal" class="btn btn-danger deleteBtn">Delete</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
 </div>
 
 
@@ -213,22 +247,3 @@
 </body>
 </html>
 
-
-
-
-
-
-
-
-
-<!--<form th:action="@{/admin/update}" th:method="post" th:object="user">-->
-<!--    <button type="submit" data-dismiss="modal"-->
-<!--            class="btn btn-primary editBtn">Edit-->
-<!--    </button>-->
-<!--</form>-->
-
-<!--<form th:action="@{/admin/delete/{id}(id=user.id)}" th:method="post">-->
-<!--    <button type="submit" data-dismiss="modal"-->
-<!--            class="btn btn-danger deleteBtn">Delete-->
-<!--    </button>-->
-<!--</form>-->
