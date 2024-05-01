@@ -2,20 +2,16 @@ package ru.kata.spring.boot_security.demo.services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +45,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public User findById(Long id) {
         Optional<User> optionalDav = userRepository.findById(id);
         return optionalDav.orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public User findByIdRest(Long id) {
+        Optional<User> optionalDav = userRepository.findById(id);
+        return optionalDav.orElseThrow(UserNotFoundException::new);
     }
 
 

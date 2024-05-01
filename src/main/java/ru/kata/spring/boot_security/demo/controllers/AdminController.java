@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @RequestMapping("/admin")
@@ -41,7 +40,7 @@ class AdminController {
     }
 
 
-    @GetMapping("/create")
+    @GetMapping("/createGet")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("thisUser", userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -57,7 +56,7 @@ class AdminController {
 
 
 
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable(value = "id") Long id) {
         if (userService.findById(id) == null) {
             return "errorPage";
@@ -73,10 +72,10 @@ class AdminController {
     }
 
 
-    @GetMapping("/completed")
-    public String showChangeCompletedPage() {
-        return "changeCompleted";
-    }
+//    @GetMapping("/completed")
+//    public String showChangeCompletedPage() {
+//        return "changeCompleted";
+//    }
 
 
 

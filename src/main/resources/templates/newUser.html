@@ -70,29 +70,39 @@
                                    th:field="*{password}" required>
                         </div>
 
-                        <!-- Hidden field to assign role dynamically -->
-                        <input type="hidden" id="role" name="roles" value="1">
 
-                        <div class="form-check">
-                            <input class="form-check-input p-2" type="checkbox" value="" id="flexCheckDefault"
-                                   name="admin">
-                            <label class="form-check-label" for="flexCheckDefault">Admin</label>
+<!--                        <input type="hidden" id="role" name="roles" value="1">-->
+
+<!--                        <div class="form-check">-->
+<!--                            <input class="form-check-input p-2" type="checkbox" value="" id="flexCheckDefault"-->
+<!--                                   name="admin">-->
+<!--                            <label class="form-check-label" for="flexCheckDefault">Admin</label>-->
+<!--                        </div>-->
+
+                        <div class="col-6 mx-auto text-center font-weight-bold">
+                            Role
+                            <select class="custom-select form-control" multiple name="role"
+                                    id="roleInput" size="2" th:field="*{roles}">
+                                <option value="1, 2">ADMIN</option>
+                                &nbsp
+                                <option value="1">USER</option>
+                            </select>
                         </div>
 
-                        <div class="p-2">
+                        <div class="p-4">
                             <button type="submit" class="btn btn-success">Add new user</button>
                         </div>
                     </form>
 
-                    <script>
-                        document.getElementById('flexCheckDefault').addEventListener('change', function () {
-                            if (this.checked) {
-                                document.getElementById('role').value = "1,2"; // Assign both roles 1 and 2
-                            } else {
-                                document.getElementById('role').value = "1"; // Assign only role 1
-                            }
-                        });
-                    </script>
+<!--                    <script>-->
+<!--                        document.getElementById('flexCheckDefault').addEventListener('change', function () {-->
+<!--                            if (this.checked) {-->
+<!--                                document.getElementById('role').value = "1,2"; // Assign both roles 1 and 2-->
+<!--                            } else {-->
+<!--                                document.getElementById('role').value = "1"; // Assign only role 1-->
+<!--                            }-->
+<!--                        });-->
+<!--                    </script>-->
 
                 </div>
             </div>
