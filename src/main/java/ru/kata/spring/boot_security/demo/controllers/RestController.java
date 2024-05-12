@@ -14,6 +14,7 @@ import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/users")
+@CrossOrigin
 public class RestController {
 
     UserService userService;
@@ -31,8 +32,13 @@ public class RestController {
 
 
     @GetMapping("/{id}")
-    public User findByID(@PathVariable("id") Long id) {
-        return userService.findById(id);
+    public ResponseEntity<User> findByID(@PathVariable("id") Long id) {
+        User user = userService.findById(id);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+
     }
 
     @PostMapping()
@@ -40,6 +46,13 @@ public class RestController {
         userService.saveUser(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
+//    @PutMapping("/{id}")
+//    public ResponseEntity<HttpStatus> update(@PathVariable("id") Long id, @RequestBody User user) {
+//        userService.saveUser(user);
+//        return ResponseEntity.ok(HttpStatus.OK);
+//    }
+
 
     @PostMapping("/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {

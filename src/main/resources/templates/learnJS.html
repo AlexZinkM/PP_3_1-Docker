@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .table-caption {
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills"  role="tablist" aria-orientation="vertical">
+            <button class="nav-link active"   aria-selected="true">Home</button>
+            <button class="nav-link"   aria-selected="false">Profile</button>
+           </div>
+    </div>
+    <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
+            </div>
+    </div>
+
+
+    <div class="col-2 bg-white p-2" style="height: 100vh;">
+        <!-- Белая левая часть страницы -->
+        <div class="d-grid gap-2 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" type="button" role="tab" aria-controls="v-pills-admin" data-toggle="pill"
+                    data-target="#v-pills-admin" id="v-pills-admin">Admin</button>
+            <button class="nav-link" type="button" role="tab" aria-controls="v-pills-user"
+                    data-toggle="pill" data-target="#v-pills-user" id="v-pills-user">User</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

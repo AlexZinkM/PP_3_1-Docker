@@ -44,6 +44,13 @@ public class User implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+
+    public String getStringRoles() {
+        return roles.stream().map(Role::getName).map(roleName -> roleName.replace("ROLE_", ""))
+                .collect(Collectors.joining(", "));
+    }
+
+
     @Override
     public String getUsername() {
         return getEmail();
