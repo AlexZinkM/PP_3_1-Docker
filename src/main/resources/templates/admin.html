@@ -25,32 +25,58 @@
 
     </div>
     <div class="row">
-        <div class="col-2 bg-white p-2" style="height: 100vh;">
+         <div class="col-2 bg-white p-2" style="height: 100vh;">
             <!-- Белая левая часть страницы -->
-            <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="button">Admin</button>
-                <button class="btn btn-outline-primary" type="button">User</button>
+            <div class="d-grid gap-2 nav flex-column nav-pills"  aria-orientation="vertical">
+                <button class="nav-link active" type="button" role="tab" data-toggle="pill"
+                        data-target="#v-pills-admin">Admin</button>
+                <button class="nav-link" type="button" role="tab"
+                        data-toggle="pill" data-target="#v-pills-user">User</button>
             </div>
         </div>
-        <div class="col-10 bg-light" style="height: 100vh;">
-<!--            Импортированный скрипт-->
-            <script src="/JS_code/adminTable.js" ></script>
-            <!-- Светло-серая правая часть страницы -->
-            <h1 class="p-2">Admin panel</h1>
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Users table</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/createGet">New user</a>
-                </li>
-                <table class="table table-striped table-hover caption-top" id="adminTable">
-                    <caption class="fw-bold table-caption p-3">All users</caption>
+
+        <!---------------------------------------------------------------------------------------------------------------------------->
+        <div class="col-10 bg-light tab-content" style="height: 100vh;">
+             <!-- Светло-серая правая часть страницы -->
+            <div class="tab-pane fade show active" id="v-pills-admin">
+                <h1 class="p-2">Admin panel</h1>
+
+
+<!----------------------------Last thing-->
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Users table</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/createGet">New user</a>
+                    </li>
+                    <table class="table table-striped table-hover caption-top" id="adminTable">
+                        <caption class="fw-bold table-caption p-3">All users</caption>
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </ul>
+
+ <!---------------------------------------------------------Last thing-->
+
+            </div>
+            <!---------------------------------------------------------------------------------------------------------------------------->
+            <div class="tab-pane fade show" id="v-pills-user">
+                <!-- Светло-серая правая часть страницы -->
+                <h1 class="p-2">User information page</h1>
+                <table class="table table-striped table-hover caption-top" id="userTable">
+                    <caption class="fw-bold table-caption p-3">About user</caption>
                     <thead></thead>
                     <tbody></tbody>
                 </table>
-            </ul>
+            </div>
         </div>
+        <!---------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
     </div>
 </div>
 
@@ -196,6 +222,10 @@
     </div>
 </div>
 
+
+
+<script>var thisUserID = [[${thisUser.id}]];</script>
+<script src="/JS_code/adminTable.js" ></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

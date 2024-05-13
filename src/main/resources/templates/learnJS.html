@@ -1,9 +1,16 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Page</title>
+    <title>Admin Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
@@ -14,32 +21,93 @@
 </head>
 <body>
 
-
-<div class="row">
-    <div class="col-3">
-        <div class="nav flex-column nav-pills"  role="tablist" aria-orientation="vertical">
-            <button class="nav-link active"   aria-selected="true">Home</button>
-            <button class="nav-link"   aria-selected="false">Profile</button>
-           </div>
-    </div>
-    <div class="col-9">
-        <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
-            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-            </div>
-    </div>
-
-
-    <div class="col-2 bg-white p-2" style="height: 100vh;">
-        <!-- Белая левая часть страницы -->
-        <div class="d-grid gap-2 nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <button class="nav-link active" type="button" role="tab" aria-controls="v-pills-admin" data-toggle="pill"
-                    data-target="#v-pills-admin" id="v-pills-admin">Admin</button>
-            <button class="nav-link" type="button" role="tab" aria-controls="v-pills-user"
-                    data-toggle="pill" data-target="#v-pills-user" id="v-pills-user">User</button>
+<div class="container-fluid">
+    <div class="row bg-dark text-white d-flex justify-content-between align-items-center" style="height: 50px;">
+        <!-- Dark top bar on the page -->
+        <div class="p-2">
+            <p>Email: <span th:text="${thisUser.email}"></span>, Roles: <span th:text="${thisUser.getStringRoles()}"></span></p>
+            <a href="/logout" class="text-white p-2 position-absolute top-0 end-0">Logout</a>
         </div>
+
+
+    </div>
+    <div class="row">
+        <!---------------------------------------------------------------------------------------------------------------------------->
+        <div class="col-2 bg-white p-2" style="height: 100vh;">
+            <!-- Белая левая часть страницы -->
+            <div class="d-grid gap-2 nav flex-column nav-pills"  aria-orientation="vertical">
+                <button class="nav-link active" type="button" role="tab" data-toggle="pill"
+                        data-target="#v-pills-admin">Admin</button>
+                <button class="nav-link" type="button" role="tab"
+                        data-toggle="pill" data-target="#v-pills-user">User</button>
+            </div>
+        </div>
+
+
+<!---------------------------------------------------------------------------------------------------------------------------->
+        <div class="col-10 bg-light tab-content" style="height: 100vh;">
+<!--            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>-->
+            <!-- Светло-серая правая часть страницы -->
+            <!--            Импортированный скрипт-->
+            <div class="tab-pane fade show active" id="v-pills-admin">
+            <script src="/JS_code/adminTable.js" ></script>
+            <h1 class="p-2">Admin panel</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/createGet">New user</a>
+                </li>
+                <table class="table table-striped table-hover caption-top" id="adminTable">
+                    <caption class="fw-bold table-caption p-3">All users</caption>
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </ul>
+        </div>
+ <!---------------------------------------------------------------------------------------------------------------------------->
+            <div class="tab-pane fade show active" id="v-pills-user">
+            <script>var userID = [[${user.id}]];</script>
+            <script src="/JS_code/userTable.js" ></script>
+            <!-- Светло-серая правая часть страницы -->
+            <h1 class="p-2">User information page</h1>
+            <table class="table table-striped table-hover caption-top" id="table">
+                <caption class="fw-bold table-caption p-3">About user</caption>
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        </div>
+ <!---------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

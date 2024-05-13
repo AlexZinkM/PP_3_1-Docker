@@ -1,6 +1,5 @@
 
-
-document.addEventListener("DOMContentLoaded", function () {
+function showUserTable() {
     fetch('http://localhost:8080/api/users/' + userID)
         .then((res) => res.json())
         .then((user) => {
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </tr>`;
             document.querySelector("thead").innerHTML = headers;
 
-            let roleNames = user.roles.map(role => role.name).join(', ');
+            let roleNames = user.roles.map(role => role.name.replace("ROLE_", "")).join(', ');
 
             let rows =
                 ` <tr>
@@ -28,4 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     </tr>`;
             document.querySelector("tbody").innerHTML = rows;
         });
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    showUserTable();
 });
+
+

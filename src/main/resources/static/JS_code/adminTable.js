@@ -13,7 +13,7 @@ function renewTable() {
                         <th class="text-center">Edit</th>
                         <th class="text-center">Delete</th>
                     </tr>`;
-            document.querySelector("thead").innerHTML = headers;
+            document.querySelector("#adminTable thead").innerHTML = headers;
 
             let rows = "";
             data.forEach((user) => {
@@ -40,7 +40,7 @@ function renewTable() {
                         </td>
                     </tr>`;
             });
-            document.querySelector("tbody").innerHTML = rows;
+            document.querySelector("#adminTable tbody").innerHTML = rows;
 
 
             document.querySelectorAll(".deleteBtn").forEach(button => {
@@ -80,11 +80,13 @@ function renewTable() {
                     document.getElementById("emailInput").value = user.email;
                     document.getElementById("passwordInput").value = user.password;
 
-                    // if ((user.roles).length === 2) {
-                    //     document.getElementById("passwordInput").value  = 'ADMIN';
-                    // } else {
-                    //     document.getElementById("passwordInput").value  = 'USER';
-                    // }
+                    console.log("length " + user.roles.length)
+
+                    if ((user.roles).length === 2) {
+                        document.getElementById("roleInput").value  = 'ADMIN';
+                    } else {
+                        document.getElementById("roleInput").value  = 'USER';
+                    }
 
 
                     document.querySelector(".editConfirmBtn").addEventListener("click", function () {
@@ -102,12 +104,8 @@ function renewTable() {
                         if (role === 'ADMIN') {
                             selectedRoles.push({id: 1, name: 'ROLE_USER'});
                             selectedRoles.push({id: 2, name: 'ROLE_ADMIN'});
-                        } else if (role === 'USER') {
-                            selectedRoles.push({id: 1, name: 'ROLE_USER'});
                         } else {
-                            event.preventDefault();
-                            alert('Please select a role');
-                            return;
+                            selectedRoles.push({id: 1, name: 'ROLE_USER'});
                         }
 
                         jsonData['roles'] = selectedRoles;
@@ -155,6 +153,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+function renewUserTable() {
+    fetch('http://localhost:8080/api/users/' + thisUserID)
+        .then((res) => res.json())
+        .then((user) => {
+            let headers = `
+          <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">First Name</th>
+                        <th class="text-center">Last Name</th>
+                        <th class="text-center">Age</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Role</th>
+                    </tr>`;
+            document.querySelector("#userTable thead").innerHTML = headers;
+
+            let roleNames = user.roles.map(role => role.name.replace("ROLE_", "")).join(', ');
+
+            let rows =
+                ` <tr>
+                        <td class="text-center">${user.id}</td>
+                        <td class="text-center">${user.firstName}</td>
+                        <td class="text-center">${user.lastName}</td>
+                        <td class="text-center">${user.age}</td>
+                        <td class="text-center">${user.email}</td>
+                        <td class="text-center">${roleNames}</td>
+                    </tr>`;
+            document.querySelector("#userTable tbody").innerHTML = rows;
+        });
+}
+
+
+
+document.addEventListener("click", function () {
+    renewUserTable();
+});
 
 
 
