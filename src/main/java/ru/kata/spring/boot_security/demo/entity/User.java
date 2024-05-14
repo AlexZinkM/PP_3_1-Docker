@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.entities;
+package ru.kata.spring.boot_security.demo.entity;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +30,7 @@ public class User implements UserDetails {
 
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

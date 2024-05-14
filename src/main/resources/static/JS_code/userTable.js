@@ -1,5 +1,5 @@
 
-function showUserTable() {
+function showTable() {
     fetch('http://localhost:8080/api/users/' + userID)
         .then((res) => res.json())
         .then((user) => {
@@ -14,7 +14,12 @@ function showUserTable() {
                     </tr>`;
             document.querySelector("thead").innerHTML = headers;
 
+
+            console.log(user.roles);
             let roleNames = user.roles.map(role => role.name.replace("ROLE_", "")).join(', ');
+
+
+
 
             let rows =
                 ` <tr>
@@ -23,7 +28,7 @@ function showUserTable() {
                         <td class="text-center">${user.lastName}</td>
                         <td class="text-center">${user.age}</td>
                         <td class="text-center">${user.email}</td>
-                        <td class="text-center">${roleNames}</td>
+                         <td class="text-center">${roleNames}</td>
                     </tr>`;
             document.querySelector("tbody").innerHTML = rows;
         });
@@ -32,7 +37,7 @@ function showUserTable() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    showUserTable();
+    showTable();
 });
 
 

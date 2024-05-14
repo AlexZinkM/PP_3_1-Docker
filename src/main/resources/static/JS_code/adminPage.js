@@ -79,14 +79,13 @@ function renewTable() {
                     document.getElementById("ageInput").value = user.age;
                     document.getElementById("emailInput").value = user.email;
                     document.getElementById("passwordInput").value = user.password;
+                    document.getElementById("roleInput").value = ((user.roles).length === 2) ? 'ADMIN': 'USER';
 
-                    console.log("length " + user.roles.length)
-
-                    if ((user.roles).length === 2) {
-                        document.getElementById("roleInput").value  = 'ADMIN';
-                    } else {
-                        document.getElementById("roleInput").value  = 'USER';
-                    }
+                    // if ((user.roles).length === 2) {
+                    //     document.getElementById("roleInput").value  = 'ADMIN';
+                    // } else {
+                    //     document.getElementById("roleInput").value  = 'USER';
+                    // }
 
 
                     document.querySelector(".editConfirmBtn").addEventListener("click", function () {

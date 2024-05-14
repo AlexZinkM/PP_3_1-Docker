@@ -31,8 +31,6 @@
             </div>
         </div>
         <div class="col-10 bg-light" style="height: 100vh;">
-            <script>var userID = [[${user.id}]];</script>
-            <script src="/JS_code/userTable.js" ></script>
             <!-- Светло-серая правая часть страницы -->
             <h1 class="p-2">User information page</h1>
             <table class="table table-striped table-hover caption-top" id="table">
@@ -44,9 +42,10 @@
     </div>
 </div>
 
+
+<script>var userID = [[${user.id}]];</script>
+<script src="/JS_code/userTable.js" ></script>
 </body>
-
-
 </html>
 
 

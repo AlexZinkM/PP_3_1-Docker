@@ -1,15 +1,14 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.method.P;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.entities.User;
-import ru.kata.spring.boot_security.demo.services.UserService;
+import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.util.UserErrorResponse;
 import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
 
-import javax.net.ssl.SSLEngineResult;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -33,7 +32,7 @@ public class RestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> findByID(@PathVariable("id") Long id) {
-        User user = userService.findById(id);
+        User user = userService.findByIdRest(id);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -42,16 +41,18 @@ public class RestController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> create(@RequestBody User user) {
+    public ResponseEntity<HttpStatus> postUser(@RequestBody User user) {
+        User userInDB = userService.findByEmail(user.getEmail());
+        if (userInDB != null) {
+            if (userInDB.getPassword().equals(user.getPassword())) {
+                userService.putUser(user);
+                return ResponseEntity.ok(HttpStatus.OK);
+            }
+        }
         userService.saveUser(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<HttpStatus> update(@PathVariable("id") Long id, @RequestBody User user) {
-//        userService.saveUser(user);
-//        return ResponseEntity.ok(HttpStatus.OK);
-//    }
 
 
     @PostMapping("/{id}")
@@ -61,13 +62,12 @@ public class RestController {
     }
 
 
-
-    @ExceptionHandler
-    private ResponseEntity<UserErrorResponse> excHandler(UserNotFoundException e) {
-        UserErrorResponse response = new UserErrorResponse(
-                "User with this id wasn't found",
-                System.currentTimeMillis()
-        );
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
+//    @ExceptionHandler
+//    private ResponseEntity<UserErrorResponse> excHandler(UserNotFoundException e) {
+//        UserErrorResponse response = new UserErrorResponse(
+//                "User with this id wasn't found",
+//                System.currentTimeMillis()
+//        );
+//        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+//    }
 }

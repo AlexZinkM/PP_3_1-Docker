@@ -8,13 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
-
-import java.util.Arrays;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 
 @Configuration
@@ -50,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
+                .antMatchers("/user/**", "/api/users/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/admin/**", "/api/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 //.anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -74,4 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setUserDetailsService(userDetailsService);
         return authenticationProvider;
     }
+
+
 }
