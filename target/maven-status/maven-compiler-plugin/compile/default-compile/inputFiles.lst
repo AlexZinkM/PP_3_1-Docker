@@ -1,0 +1,17 @@
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\controller\UserController.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\configs\PasswordEncoder.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\configs\WebSecurityConfig.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\controller\RestController.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\entity\Role.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\entity\User.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\SpringBootSecurityDemoApplication.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\service\UserService.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\util\UserNotFoundException.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\repository\UserRepository.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\repository\RoleRepository.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\service\UserServiceImpl.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\configs\SuccessUserHandler.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\configs\MvcConfig.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\controller\HomeController.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\util\UserErrorResponse.java
+C:\Users\Íèíà\IdeaProjects\PP_3_1-Docker\src\main\java\ru\kata\spring\boot_security\demo\controller\AdminController.java

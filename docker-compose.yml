@@ -1,0 +1,29 @@
+
+services:
+
+  mysqldb:
+    container_name: mysqlContainer
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: mysql_db
+      MYSQL_ROOT_PASSWORD: root
+#    networks:
+#      - mynetwork
+
+
+
+  app:
+    build: ./
+    container_name: 'appContainer'
+    ports:
+      - 8080:8080
+#    networks:
+#      - mynetwork
+
+#  networks:
+#    mynetwork:
+#      driver: bridge
+
+

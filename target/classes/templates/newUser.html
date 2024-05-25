@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .table-caption {
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row bg-dark text-white d-flex justify-content-between align-items-center" style="height: 50px;">
+        <!-- Dark top bar on the page -->
+        <div class="p-2">
+            <p>Email: <span th:text="${thisUser.email}"></span>, Roles: <span th:text="${thisUser.getStringRoles()}"></span></p>
+            <a href="/logout" class="text-white p-2 position-absolute top-0 end-0">Logout</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 bg-white p-2" style="height: 100vh;">
+            <!-- Белая левая часть страницы -->
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="button">Admin</button>
+                <button class="btn btn-outline-primary" type="button">User</button>
+            </div>
+        </div>
+        <div class="col-10 bg-light" style="height: 100vh;">
+            <!-- Светло-серая правая часть страницы -->
+            <h1 class="p-2">Admin panel</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/admin">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">New user</a>
+                </li>
+            </ul>
+
+            <------------------------------------------------------------------------------------------------------->
+
+            <div class="col-10 bg-white p-2 d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <div class="col-5 bg-white p-2" style="height: 100vh;">
+                    <form id="userForm" class="mb-3">
+                        <div class="mb-3">
+                            <label for="exampleInputFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="exampleInputFirstName" name="firstName"
+                                   required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="exampleInputLastName" name="lastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputAge" class="form-label">Age</label>
+                            <input type="number" class="form-control" id="exampleInputAge" name="age" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                                   required>
+                        </div>
+                        <div class="col-6 mx-auto text-center font-weight-bold">
+                            Role
+                            <select class="custom-select form-control" multiple name="roles" id="roleInput" size="2" required>
+                                <option value="ADMIN">ADMIN</option>
+                                &nbsp
+                                <option value="USER">USER</option>
+                            </select>
+                        </div>
+
+                        <div class="p-4">
+                            <button type="button" onclick="postData()" class="btn btn-success">Add new user</button>
+                        </div>
+                    </form>
+
+
+                    <script>
+                        function postData() {
+                            const form = document.getElementById('userForm');
+                            const formData = new FormData(form);
+                            const jsonData = {};
+
+                            let selectedRoles = [];
+                            const role = formData.get('roles');
+
+
+                            if (role === 'ADMIN') {
+                                selectedRoles.push({ id: 1, name: 'ROLE_USER' });
+                                selectedRoles.push({ id: 2, name: 'ROLE_ADMIN' });
+                            } else if (role === 'USER') {
+                                selectedRoles.push({ id: 1, name: 'ROLE_USER' });
+                            } else {
+                                event.preventDefault();
+                                alert('Please select a role');
+                                return;
+                            }
+
+                            jsonData['roles'] = selectedRoles;
+
+
+                            formData.forEach((value, key) => {
+                                if (key !== 'roles') {
+                                    jsonData[key] = value;
+                                }
+                            });
+
+                            fetch('http://localhost:8080/api/users/', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(jsonData)
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        alert('User added successfully');
+                                        form.reset();
+                                    } else {
+                                        alert('Failed to add user');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    alert('An error occurred');
+                                });
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>
